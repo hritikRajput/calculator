@@ -1,6 +1,6 @@
 let displayValue = document.querySelector('.display-content');
-let firstNum = null;
-let secondNum = null;
+let firstNum = 0;
+let secondNum = 0;
 let operator = null;
 
 function add(num1, num2){
@@ -36,6 +36,9 @@ function operate(op, param1, param2){
 
 function populateDisplay(e){
     let currKey = e.target.textContent
+    if(displayValue.textContent==="0"){
+        displayValue.textContent=""
+    }
     displayValue.textContent = displayValue.textContent + currKey;
     if(currKey==="+" || currKey==="-" || currKey==="*" || currKey==="/"){
         operator = currKey;
@@ -54,8 +57,17 @@ function populateDisplay(e){
     }
 }
 
+function clearDisplay(e){
+    displayValue.textContent="0";
+    firstNum=0;
+    secondNum=0;
+    operator=null;
+}
 
-const numbers = document.querySelectorAll('.key')
+
+const numbers = document.querySelectorAll('.key');
+const clear = document.querySelector('.clear');
 numbers.forEach((number)=>{
     number.addEventListener('click', populateDisplay)
-})
+});
+clear.addEventListener('click', clearDisplay)
