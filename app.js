@@ -43,6 +43,10 @@ function populateOperator(oper) {
     currOperator = oper;
     firstNum = currOperand;
     currOperand = "";
+    if(!firstNum){
+        clearDisplay()
+        return
+    }
     displayValue.textContent = firstNum + currOperator
 }
 
