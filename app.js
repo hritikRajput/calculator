@@ -1,8 +1,13 @@
-let displayValue = document.querySelector('.display-content');
 let firstNum = 0;
 let secondNum = 0;
 let operator = null;
 let result = 0;
+
+let displayValue = document.querySelector('.display-content');
+const keys = document.querySelectorAll('.key');
+const clear = document.querySelector('.clear');
+
+// -------------- Basic Mathematical Operations -------------
 
 function add(num1, num2) {
     return num1 + num2;
@@ -19,6 +24,8 @@ function multiply(num1, num2) {
 function divide(num1, num2) {
     return Math.round(num1 / num2);
 }
+
+// 
 
 function operate(op, param1, param2) {
     if (op === "+") {
@@ -51,7 +58,7 @@ function populateDisplay(e) {
 
     }
     else if (currKey === "=") {
-        if(!operator){
+        if(!firstNum || !operator || !secondNum){
             result =0;
         }else{
          result = operate(operator, firstNum, secondNum);
@@ -82,8 +89,7 @@ function clearDisplay(e) {
 }
 
 
-const keys = document.querySelectorAll('.key');
-const clear = document.querySelector('.clear');
+
 keys.forEach((key) => {
     key.addEventListener('click', populateDisplay)
 });
