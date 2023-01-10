@@ -51,18 +51,18 @@ function populateOperator(oper) {
 }
 
 function evaluate() {
-    secondNum = currOperand;
+    if(currOperator===null){
+        return;
+    }
     if (currOperator === "/" && secondNum === "0") {
         alert("ERROR! You can not divide by zero.");
         clearDisplay()
         return;
     }
-    
-    if (firstNum && secondNum && currOperator) {
-        currOperand = `${Math.round(operate(currOperator, firstNum, secondNum) * 10) / 10}`;
-        console.log(firstNum, secondNum, currOperand, currOperator)
-        displayValue.textContent = currOperand;
-    }
+    secondNum = currOperand;
+    currOperand = `${Math.round(operate(currOperator, firstNum, secondNum) * 10) / 10}`;
+    console.log(firstNum, secondNum, currOperand, currOperator)
+    displayValue.textContent = currOperand;
     currOperator=null;
 }
 
