@@ -46,7 +46,7 @@ body{
     flex-wrap: wrap;
     margin-right: 5px;
 }
-.number, .clear,.equal{
+.number, .clear,.equal, .decimal{
     height: auto;
     width: 30%;
     flex-grow: 1;
@@ -68,7 +68,7 @@ body{
     flex-direction: column;
     gap: 5px;
 }
-.operator{
+.operator, .backspace{
     width: 100%;
     height: auto;
     flex-grow: 1;

@@ -9,6 +9,29 @@ const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 const clear = document.querySelector('.clear');
 const equal = document.querySelector('.equal');
+const decimal = document.querySelector('.decimal');
+const backSpace = document.querySelector('.backspace');
+
+window.addEventListener('keydown',(e)=>{
+    if(e.key>=0 && e.key<=9){
+        populateNumber(e.key)
+    }
+    else if(e.key==="+" || e.key==="-" || e.key==="*" || e.key==="/"){
+        populateOperator(e.key);
+    }
+    else if(e.key==="."){
+        addDecimal()
+    }
+    else if(e.key==="=" || e.key==="Enter"){
+        evaluate()
+    }
+    else if(e.key==="Backspace"){
+        deleteCharacter()
+    }
+    else if(e.key==="Escape"){
+        clearDisplay();
+    }
+})
 
 numbers.forEach((number) => {
     number.addEventListener('click', () => populateNumber(number.textContent))
@@ -16,8 +39,10 @@ numbers.forEach((number) => {
 operators.forEach((operator) => {
     operator.addEventListener('click', () => populateOperator(operator.textContent))
 })
-clear.addEventListener('click', clearDisplay)
-equal.addEventListener('click', evaluate)
+clear.addEventListener('click', clearDisplay);
+equal.addEventListener('click', evaluate);
+decimal.addEventListener('click', addDecimal);
+backSpace.addEventListener('click', deleteCharacter);
 
 
 function populateNumber(num) {
@@ -33,7 +58,7 @@ function clearDisplay() {
     firstNum = "";
     secondNum = "";
     currOperator = null;
-    currOperand=""
+    currOperand = ""
 }
 
 function populateOperator(oper) {
@@ -43,15 +68,34 @@ function populateOperator(oper) {
     currOperator = oper;
     firstNum = currOperand;
     currOperand = "";
-    if(!firstNum){
+    if (!firstNum) {
         clearDisplay()
         return
     }
     displayValue.textContent = firstNum + currOperator
 }
 
+function addDecimal() {
+    if (currOperand.includes(".")) {
+        return
+    }
+    displayValue.textContent += "."
+    currOperand += "."
+}
+
+function deleteCharacter() {
+    if (currOperand) {
+        currOperand = currOperand.slice(0, -1);
+        displayValue.textContent = displayValue.textContent.slice(0, -1)
+    }
+    else {
+        return
+    }
+
+}
+
 function evaluate() {
-    if(currOperator===null){
+    if (currOperator === null) {
         return;
     }
     if (currOperator === "/" && secondNum === "0") {
@@ -63,7 +107,7 @@ function evaluate() {
     currOperand = `${Math.round(operate(currOperator, firstNum, secondNum) * 10) / 10}`;
     console.log(firstNum, secondNum, currOperand, currOperator)
     displayValue.textContent = currOperand;
-    currOperator=null;
+    currOperator = null;
 }
 
 // -------------- Basic Mathematical Operations -------------
